@@ -1,0 +1,58 @@
+{% extends './membresia.html' %}
+{% block title %}Membresias lista{% endblock %}
+
+{% block body %}
+<script src="{{ url_for('static', filename='js/layout.js') }}"></script>
+<form action="{{url_for('consulta_miembro')}}" method="POST", id="form">
+  <div class="container m-2 pb-2">
+    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+      <div class="col-6">
+        <input type="number" class="form-control" id="ID" name="ID" placeholder="ID">
+      </div>
+      <div class="col-6">
+        <button type="submit" class="btn btn-primary small ml-3 btn-dark">Consulta</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID Membresia</th>
+      <th scope="col">ID Usuario</th>
+      <th scope="col">Fecha de nacimiento</th>
+      <th scope="col">Domicilio</th>
+      <th scope="col">Fecha de expiracion</th>
+      <th scope="col">Fecha de expedicon</th>
+      <th scope="col">Correo</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Opciones</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for miembro in miembros %}
+    <tr>
+      <td> {{miembro.0}}</td>
+      <td> {{miembro.1}}</td>
+      <td> {{miembro.2}}</td>
+      <td> {{miembro.3}}</td>
+      <td> {{miembro.4}}</td>
+      <td> {{miembro.5}}</td>
+      <td> {{miembro.6}}</td>
+      {% if miembro.7 == 1%}
+      <td> Vigente</td>
+      {% else%}
+      <td> Vencida/Anulada</td> 
+      {% endif %}
+
+      <td> 
+        <a class="btn btn-danger" href="/membresia/lista/edit/{{miembro.0}}">Editar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends './prestamos.html' %}
+
+{% block title %}Préstamos Nuevo{% endblock %}
+
+{% block body %}
+<script src="{{ url_for('static', filename='js/layout.js') }}"></script>
+<form method="POST" , id="form" onsubmit="detener = false">
+    <div class="container m-2 pb-2">
+        <div class="row">
+            <div class="col">
+                <input type="number" class="form-control" id="ID" name="ID" placeholder="ID">
+                <small id="IDsHelpBlock" class="form-text text-muted">
+                    Ingresa el identificador del libro.
+                </small>
+            </div>
+
+            <div class="col">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="submit" class="btn btn-success" formaction="/prestamos/nuevo/add">Añadir</button>
+                    <button type="submit" class="btn btn-danger" formaction="/prestamos/nuevo/delete">Eliminar</button>
+                    <button type="submit" class="btn btn-warning" formaction="/prestamos/nuevo/do">Realizar</button>
+                </div>
+                <small id="OpcionesHelpBlock" class="form-text text-muted">
+                    Opciones del prestamo.
+                </small>
+            </div>            
+        </div>
+    </div>
+</form>
+{% if error %}
+<div class="row px-2">
+    <div class="col">
+        <div class="alert alert-danger" role="alert">
+            Libro no encontrado: {{ error }}
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+{% if success %}
+<div class="row px-2">
+    <div class="col">
+        <div class="alert alert-success" role="alert">
+            {{success}} añadido al cajon de prestamos
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if warning %}
+<div class="row px-2">
+    <div class="col">
+        <div class="alert alert-warning" role="alert">
+            Se supero la cantidad de ejemplares que pueden ser sujetos a prestamo
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Folio</th>
+            <th scope="col">ID Membresia</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Fecha de solicitud</th>
+            <th scope="col">Fecha de entrega</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>{{miembro.4}}</th>
+            <th>{{miembro.0}}</th>
+            <th>{{miembro.1}}</th>
+            <th>{{miembro.2}}</th>
+            <th>{{miembro.3}}</th>
+            
+        </tr>
+
+    </tbody>
+
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">Ejemplar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for libro in libros %}
+        <tr>
+            <td> {{libro.2}}</td>
+            <td> {{libro.0}}</td>
+            <td> {{libro.1}}</td>
+            <td> {{libro.3}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+
+</table>
+<script>
+    var detener = true
+
+    const form = document.getElementById("form")
+    
+    window.addEventListener("beforeunload", function (event) {
+        if(detener)
+        {
+            event.returnValue = "\o/";    
+        }
+    });
+    
+    
+</script>
+{% endblock %}

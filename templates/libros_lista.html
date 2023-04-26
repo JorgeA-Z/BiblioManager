@@ -1,0 +1,55 @@
+{% extends './libros.html' %}
+{% block title %}Libros lista{% endblock %}
+
+{% block body %}
+<form action="{{url_for('consulta_libro')}}" method="POST", id="form">
+  <div class="container m-2 pb-2">
+    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+      <div class="col-6">
+        <input type="number" class="form-control" id="ID" name="ID" placeholder="ID">
+      </div>
+      <div class="col-6">
+        <button type="submit" class="btn btn-primary small ml-3 btn-dark">Consulta</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID Libro</th>
+      <th scope="col">ID Titulo</th>
+      <th scope="col">Ejemplar</th>
+      <th scope="col">Costo</th>
+      <th scope="col">Daños</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for libro in libros %}
+    <tr>
+      <td> {{libro.0}}</td>
+      <td> {{libro.1}}</td>
+      <td> {{libro.2}}</td>
+      <td> {{libro.3}}</td>
+      <td> {{libro.4}}</td>
+      {% if libro.5 == 1 %}
+      <td>Activo</td>
+      {% else %}
+      <td>Inactivo</td>
+      {% endif%}
+      
+      
+      <td> 
+        <a class="btn btn-danger" href="/libros/lista/edit/{{libro.0}}">Editar</a>
+      </td>
+
+
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+{% endblock %}

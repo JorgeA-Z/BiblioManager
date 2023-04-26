@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content = "IE=edge">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/library_books_white_24dp.svg') }}">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand">
+            <img src="{{ url_for('static', filename='img/LogoLibros.svg') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+            Biblioteca Manager
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/inicio">Inicio<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/libros">Libros</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/empleados">Empleados</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/membresia">Membresias</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/prestamos">Préstamos</a>
+          </li>
+          </ul>
+          <div class="container">
+            <a class="navbar-brand" href="/logout">
+              <img src="{{ url_for('static', filename='img/logout_white_24dp.svg') }}" alt="" width="30" height="24">
+            </a>
+          </div>
+        </div>
+      </nav>
+      {% block head %}
+      {% endblock %}
+    <!--link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}"-->
+</head>
+
+<body>
+    {% block body %}
+    {% endblock %}
+    <!--script src="{{ url_for('static', filename='js/layout.js') }}"></script-->
+    
+</body>
+
+</html>

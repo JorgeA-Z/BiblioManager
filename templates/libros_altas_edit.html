@@ -1,0 +1,132 @@
+{% extends './libros.html' %}
+{% block title %}Libros altas{% endblock %}
+
+{% block body %}
+<script src="{{ url_for('static', filename='js/layout.js') }}"></script>
+
+<div class="container mt-5">
+    <a href="/libros/lista">
+        <img src="{{ url_for('static', filename='img/arrow_back_black_24dp.svg') }}" alt="" width="30" height="24">
+    </a>
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+    {% endif %}
+    <div class="row d-flex justify-content-center">
+        <div class="col">
+
+            <form action="{{url_for('edited_libro')}}" method="POST", id="form">
+                <div class="row px-2">
+                    <div class="col mt-3">
+
+                        <label for="staticID" class="form-control text-muted">{{libro.0}}</label>
+                        <small id="CostoHelpBlock" class="form-text text-muted">
+                            Identificador del libro.
+                        </small> 
+                        <input type="hidden" class="form-control" placeholder="ID" name="ID" id="ID" value="{{libro.0}}">
+                    </div>
+
+                </div>
+
+                <div class="row px-2">
+                    <div class="col mt-3">
+
+                        <input type="text" class="form-control" placeholder="Costo" name="Costo" id="Costo" value="{{libro.3}}">
+
+                        <small id="CostoHelpBlock" class="form-text text-muted">
+                            Solo admite números decimales y enteros.
+                        </small>
+                    </div>
+                    
+                    <div class="col mt-3">
+                    <select class="form-control" id="Estado" name="Estado">
+                        <option selected disabled>Choose...</option>
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                    <small id="EstadoHelpBlock" class="form-text text-muted">
+                        Estado del libro.
+                    </small>
+                    </div>
+                    
+                    <div class="col mt-3">
+                        <select class="form-control" id="DAMAGE" name="DAMAGE">
+                            <option selected disabled>Choose...</option>
+                            <option value="NINGUNO">Ninguno</option>
+                            <option value="TOTALES">Totales</option>
+                            <option value="PARCIALES">Parciales</option>
+                        </select>
+                        <small id="DañosHelpBlock" class="form-text text-muted">
+                            Daños del libro.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row px-2">
+                    <div class="col mt-3">
+                    <button type="submit" class="btn btn-dark">Registrar</button>                  
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    
+    (function() {
+        'use strict';
+
+        const COSTO = document.getElementById("Costo")
+
+        const ESTADO = document.getElementById("Estado")
+        const DAMAGE = document.getElementById("DAMAGE")
+
+        let regrexNUMBER = /^-?\d+$/
+
+        let regrexNUMBERFloat = /^[0-9]+([.])?([0-9]+)?$/
+
+        let detener = false
+
+        const form = document.getElementById("form")
+        form.addEventListener("submit", e=>{
+            if(DAMAGE.value == "NINGUNO" ||  DAMAGE.value == "TOTALES" || DAMAGE.value == "PARCIALES")
+            {
+                DAMAGE.classList.add('is-valid')
+                
+            }else
+            {
+                detener = true
+                DAMAGE.classList.add('is-invalid')
+            }
+            if(ESTADO.value == "0" || ESTADO.value == "1")
+            {
+                COSTO.classList.add('is-valid')
+                
+            }else
+            {
+                detener = true
+                ESTADO.classList.add('is-invalid')
+            }
+            if(!regrexNUMBERFloat.test(COSTO.value))
+            {
+                detener = true
+                COSTO.classList.add('is-invalid')
+
+            }else
+            {
+                COSTO.classList.add('is-valid')
+
+            }
+            if(detener == true)
+            {
+                e.preventDefault()
+                e.stopPropagation()
+                detener = false
+            }
+
+        })
+
+      })();
+</script>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends './prestamos.html' %}
+
+{% block title %}Detalle de prestamo{% endblock %}
+
+{% block body %}
+<script src="{{ url_for('static', filename='js/layout.js') }}"></script>
+<div class="container m-2 pb-2">
+    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+      <div class="col">
+          <a href="/prestamos/devolver">
+              <img src="{{ url_for('static', filename='img/arrow_back_black_24dp.svg') }}" alt="" width="30" height="24">
+          </a>
+      </div>
+    </div>
+  </div>
+  {% if status %}
+  <table class="table">
+    <thead>
+      <tr>
+        <div class="row px-2">
+          <div class="col">
+              <div class="alert alert-success" role="alert">
+                  {{status}}
+                </div>
+              </div>
+            </div>
+          </tr>
+
+          <tr>
+            <th scope="col">ID Membresia</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Fecha de solicitud</th>
+            <th scope="col">Fecha de entrega</th>
+            <th scope="col">Folio</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{miembros.0}}</td>
+        <td>{{miembros.1}}</td>
+        <td>{{miembros.2}}</td>
+        <td>{{miembros.3}}</td>
+        <td>{{miembros.4}}</td>
+      </tr>
+
+    </tbody>
+</table>
+      
+{% endif %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID Libro</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Autor</th>
+        </tr>
+    </thead>
+    <tbody>
+          {% for libro in libros %}
+          <tr>
+            <td>{{libro.1}}</td>
+            <td>{{libro.2}}</td>
+            <td>{{libro.3}}</td>
+
+          </tr>
+          {% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}
